@@ -1,0 +1,14 @@
+{
+  "name": "KONE SORY BEN KHALED — Portfolio",
+  "short_name": "KSBK",
+  "description": "Portfolio de KONE SORY BEN KHALED.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "theme_color": "#FFE500",
+  "background_color": "#FAFAF7",
+  "lang": "fr",
+  "dir": "ltr",
+  "categories": ["portfolio", "developer", "react"],
+  "icons": [{ "src": "/ksbk.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
+}
