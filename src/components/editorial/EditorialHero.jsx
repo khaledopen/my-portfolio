@@ -1,50 +1,17 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import { personalInfo } from '../../utils/constants';
+import DigitalFluid from './DigitalFluid';
 
 const EditorialHero = () => {
   const heroRef = useRef(null);
-  const artRef = useRef(null);
-
-  useEffect(() => {
-    const hero = heroRef.current;
-    const art = artRef.current;
-    if (!hero || !art || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
-
-    const target = { x: 0, y: 0 };
-    const current = { x: 0, y: 0 };
-    let frame;
-
-    const move = event => {
-      target.x = (event.clientX / window.innerWidth - 0.5) * 2;
-      target.y = (event.clientY / window.innerHeight - 0.5) * 2;
-    };
-    const reset = () => { target.x = 0; target.y = 0; };
-    const render = () => {
-      current.x += (target.x - current.x) * 0.065;
-      current.y += (target.y - current.y) * 0.065;
-      art.style.setProperty('--art-x', `${current.x * 34}px`);
-      art.style.setProperty('--art-y', `${current.y * 24}px`);
-      art.style.setProperty('--art-ry', `${current.x * -4.5}deg`);
-      art.style.setProperty('--art-rx', `${current.y * 3}deg`);
-      frame = requestAnimationFrame(render);
-    };
-
-    window.addEventListener('pointermove', move, { passive: true });
-    hero.addEventListener('pointerleave', reset);
-    frame = requestAnimationFrame(render);
-    return () => {
-      window.removeEventListener('pointermove', move);
-      hero.removeEventListener('pointerleave', reset);
-      cancelAnimationFrame(frame);
-    };
-  }, []);
 
   return (
     <section id="hero" className="editorial-hero" ref={heroRef}>
-      <div className="hero-art-stage" ref={artRef} aria-hidden="true">
+      <div className="hero-art-stage" aria-hidden="true">
         <div className="hero-art-aura" />
-        <img className="hero-art-image" src="/hero-code-sculpture.png" alt="" />
+        <DigitalFluid />
         <div className="hero-art-scan" />
+        <span className="hero-fluid-label">LIQUID / SYSTEM 01</span>
       </div>
 
       <div className="hero-content">
