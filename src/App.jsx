@@ -1,21 +1,21 @@
 ﻿import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './components/layout/Layout';
-import Hero from './components/sections/Hero';
-import About from './components/sections/About';
-import Experience from './components/sections/Experience';
-import Projects from './components/sections/FeaturedProjects';
-import OtherProjects from './components/sections/OtherProjects';
-import Contact from './components/sections/Contact';
+import Hero from './components/editorial/EditorialHero';
+import About from './components/editorial/EditorialAbout';
+import Experience from './components/editorial/EditorialProcess';
+import Projects from './components/editorial/EditorialProjects';
+import OtherProjects from './components/editorial/EditorialArchive';
+import Contact from './components/editorial/EditorialContact';
 
 function PortfolioPage() {
   return (
     <Layout>
       <Hero />
       <About />
-      <Experience />
       <Projects />
       <OtherProjects />
+      <Experience />
       <Contact />
     </Layout>
   );
