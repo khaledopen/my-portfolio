@@ -1,5 +1,5 @@
 import React from 'react';
-import { skills } from '../../utils/constants';
+import { technologyStack } from '../../utils/constants';
 import CodeConstellation from './CodeConstellation';
 
 const EditorialAbout = () => (
@@ -18,18 +18,34 @@ const EditorialAbout = () => (
       </p>
     </div>
 
-    <div className="about-grid">
+    <div className="about-grid about-grid--intro">
       <div className="about-copy" data-reveal>
         <p>Chaque projet est une occasion de résoudre un vrai problème : gérer une caisse, réserver un hôtel, suivre un budget ou rapprocher des artisans de leurs clients.</p>
         <p>Je travaille avec méthode, curiosité et attention aux détails pour créer des interfaces qui donnent confiance.</p>
       </div>
-      <div className="skill-orbit" data-reveal>
-        <span className="skill-orbit__center">STACK<br />ACTIVE</span>
-        <div className="skill-track">
-          {skills.map((skill, index) => (
-            <span key={skill} style={{ '--angle': `${(360 / skills.length) * index}deg`, '--angle-inverse': `${(-360 / skills.length) * index}deg` }}>{skill}</span>
-          ))}
-        </div>
+      <div className="stack-note" data-reveal>
+        <span>OUTILS / 2026</span>
+        <strong>Une stack pensée pour construire, livrer et faire évoluer.</strong>
+        <i>↘</i>
+      </div>
+    </div>
+
+    <div className="stack-section">
+      <div className="stack-section__heading" data-reveal>
+        <span>( STACK ACTIVE )</span>
+        <p>Technologies que j’utilise au quotidien</p>
+      </div>
+      <div className="stack-grid">
+        {technologyStack.map((technology, index) => (
+          <div className="tech-reveal" data-reveal key={technology.name} style={{ '--delay': `${index * 65}ms` }}>
+            <div className="tech-card" style={{ '--float-delay': `${index * -0.35}s` }}>
+              <span className="tech-card__index">{String(index + 1).padStart(2, '0')}</span>
+              <img src={technology.icon} alt={`Logo ${technology.name}`} loading="lazy" />
+              <div><strong>{technology.name}</strong><span>{technology.group}</span></div>
+              <i>↗</i>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   </section>
