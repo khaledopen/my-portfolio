@@ -1,5 +1,5 @@
 import React from 'react';
-import { otherProjects } from '../../utils/constants';
+import { featuredProjects, otherProjects } from '../../utils/constants';
 
 const EditorialArchive = () => (
   <section className="archive-section">
@@ -8,7 +8,7 @@ const EditorialArchive = () => (
     </div>
     <div className="editorial-section archive-inner">
       <div className="section-kicker" data-reveal>
-        <span>( LES ARCHIVES )</span><span>15 PROJETS AU TOTAL</span>
+        <span>( LES ARCHIVES )</span><span>{featuredProjects.length + otherProjects.length} PROJETS AU TOTAL</span>
       </div>
       <div className="archive-list">
         {otherProjects.map((project, index) => (

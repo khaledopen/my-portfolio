@@ -138,42 +138,6 @@ export const otherProjects = [
     description: 'Dépôt de livraison et de présentation de la version mobile du projet immobilier Attou Immo.',
     technologies: ['Mobile', 'Android', 'Présentation'],
     github: 'https://github.com/khaledopen/attou-immoApk'
-  },
-  {
-    title: 'TodoList React',
-    description: 'Gestionnaire de tâches avec priorités, filtres, sélection multiple et sauvegarde locale.',
-    technologies: ['React', 'TypeScript', 'DaisyUI'],
-    github: 'https://github.com/khaledopen/todolist-react'
-  },
-  {
-    title: 'GoTech Portfolio',
-    description: 'Site vitrine premium pour une agence de solutions digitales et logiciels sur mesure.',
-    technologies: ['HTML', 'CSS', 'JavaScript'],
-    github: 'https://github.com/khaledopen/GoTech-Portfolio'
-  },
-  {
-    title: 'Robbie Lens Photographie',
-    description: 'Portfolio de photographe avec galerie, page de présentation et formulaire de contact.',
-    technologies: ['HTML', 'CSS', 'Responsive Design'],
-    github: 'https://github.com/khaledopen/Portflio-Robbie-lens'
-  },
-  {
-    title: 'Projet Église',
-    description: 'Projet web consacré à la présence numérique et à la présentation d’une communauté religieuse.',
-    technologies: ['Web', 'Interface utilisateur'],
-    github: 'https://github.com/khaledopen/projet-eglise'
-  },
-  {
-    title: 'Mon projet React',
-    description: 'Projet d’apprentissage des composants, propriétés, listes et interactions de base avec React.',
-    technologies: ['React', 'Vite', 'JavaScript'],
-    github: 'https://github.com/khaledopen/mon-projet-react'
-  },
-  {
-    title: 'Premier Projet',
-    description: 'Premier exercice web versionné sur GitHub, réalisé en HTML et CSS.',
-    technologies: ['HTML', 'CSS', 'Git'],
-    github: 'https://github.com/khaledopen/PremierProjet'
   }
 ];
 

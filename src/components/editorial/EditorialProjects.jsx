@@ -11,7 +11,7 @@ const ProjectVisual = ({ project, index }) => (
   </div>
 );
 
-const ProjectGalleryModal = ({ project, onClose }) => (
+const ProjectGalleryModal = ({ project, projectIndex, onClose }) => (
   <div className="project-modal" role="dialog" aria-modal="true" aria-labelledby="project-modal-title" onMouseDown={event => {
     if (event.target === event.currentTarget) onClose();
   }}>
@@ -24,8 +24,13 @@ const ProjectGalleryModal = ({ project, onClose }) => (
         <p>Faites défiler pour découvrir l’interface</p>
         <button type="button" onClick={onClose} aria-label="Fermer la galerie du projet" autoFocus><i /> <span>FERMER</span></button>
       </header>
+      <div className="project-modal__summary">
+        <p>{project.description}</p>
+        <ul>{project.technologies.map(technology => <li key={technology}>{technology}</li>)}</ul>
+        {project.github && <a href={project.github} target="_blank" rel="noreferrer">VOIR LE CODE <i>↗</i></a>}
+      </div>
       <div className="project-modal__gallery">
-        {project.gallery.map((image, index) => (
+        {project.gallery?.map((image, index) => (
           <figure className="project-modal__slide" key={image.src}>
             <div className="project-modal__image-wrap">
               <img src={image.src} alt={image.alt} loading={index === 0 ? 'eager' : 'lazy'} />
@@ -33,6 +38,14 @@ const ProjectGalleryModal = ({ project, onClose }) => (
             <figcaption><span>ÉCRAN {String(index + 1).padStart(2, '0')}</span><strong>{index === 0 ? 'Tableau de bord' : 'Documents partagés'}</strong><i>{String(index + 1).padStart(2, '0')} / {String(project.gallery.length).padStart(2, '0')}</i></figcaption>
           </figure>
         ))}
+        {!project.gallery && (
+          <figure className="project-modal__slide project-modal__slide--concept">
+            <div className="project-modal__image-wrap project-modal__concept-visual">
+              <ProjectVisual project={project} index={projectIndex} />
+            </div>
+            <figcaption><span>APERÇU</span><strong>{project.title}</strong><i>01 / 01</i></figcaption>
+          </figure>
+        )}
       </div>
     </div>
   </div>
@@ -136,17 +149,10 @@ const EditorialProjects = () => {
                   }}
                   aria-hidden={index !== activeProject}
                 >
-                  {project.gallery ? (
-                    <button type="button" onClick={() => setViewingProject(project)} tabIndex={index === activeProject ? 0 : -1} aria-label={`Découvrir le projet ${project.title}`}>
-                      <ProjectVisual project={project} index={index} />
-                      <div className="deck-card-label"><span>NO. {String(index + 1).padStart(2, '0')}</span><strong>{project.title}</strong></div>
-                    </button>
-                  ) : (
-                    <a href={project.github} target="_blank" rel="noreferrer" tabIndex={index === activeProject ? 0 : -1} aria-label={`Voir ${project.title} sur GitHub`}>
-                      <ProjectVisual project={project} index={index} />
-                      <div className="deck-card-label"><span>NO. {String(index + 1).padStart(2, '0')}</span><strong>{project.title}</strong></div>
-                    </a>
-                  )}
+                  <button type="button" onClick={() => setViewingProject(project)} tabIndex={index === activeProject ? 0 : -1} aria-label={`Découvrir le projet ${project.title}`}>
+                    <ProjectVisual project={project} index={index} />
+                    <div className="deck-card-label"><span>NO. {String(index + 1).padStart(2, '0')}</span><strong>{project.title}</strong></div>
+                  </button>
                 </article>
               );
             })}
@@ -159,11 +165,7 @@ const EditorialProjects = () => {
             <div className="deck-details__line" />
             <p className="deck-details__copy">{active.description}</p>
             <ul>{active.technologies.map(technology => <li key={technology}>{technology}</li>)}</ul>
-            {active.gallery ? (
-              <button className="deck-details__open" type="button" onClick={() => setViewingProject(active)}>VOIR LE PROJET <i>↗</i></button>
-            ) : (
-              <a href={active.github} target="_blank" rel="noreferrer">OUVRIR LE PROJET <i>↗</i></a>
-            )}
+            <button className="deck-details__open" type="button" onClick={() => setViewingProject(active)}>VOIR LE PROJET <i>↗</i></button>
           </aside>
 
           <div className="deck-pagination">
@@ -175,7 +177,7 @@ const EditorialProjects = () => {
         </div>
       </div>
 
-      {viewingProject && <ProjectGalleryModal project={viewingProject} onClose={() => setViewingProject(null)} />}
+      {viewingProject && <ProjectGalleryModal project={viewingProject} projectIndex={featuredProjects.indexOf(viewingProject)} onClose={() => setViewingProject(null)} />}
 
       <div className="work-outro editorial-section">
         <a className="all-projects-link" href="https://github.com/khaledopen?tab=repositories" target="_blank" rel="noreferrer" data-reveal>
