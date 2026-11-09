@@ -22,7 +22,7 @@ const Layout = ({ children }) => {
           observer.unobserve(entry.target);
         }
       }),
-      { threshold: 0.12, rootMargin: '0px 0px -6% 0px' }
+      { threshold: 0.05, rootMargin: '0px 0px -4% 0px' }
     );
     items.forEach(item => observer.observe(item));
     return () => observer.disconnect();
