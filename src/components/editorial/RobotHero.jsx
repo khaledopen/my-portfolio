@@ -58,8 +58,11 @@ const RobotHero = () => {
       <div className="hero-robot-orbit hero-robot-orbit--outer" />
       <div className="hero-robot-orbit hero-robot-orbit--inner" />
       <div className="hero-robot-motion">
-        <img className="hero-robot-image" src="/hero-robot-v1.png" alt="" draggable="false" />
-        <span className="hero-robot-scan" />
+        <div className="hero-robot-body">
+          <img className="hero-robot-image" src="/hero-robot-body.png" alt="Robot KSBK" draggable="false" />
+          <img className="hero-robot-wave-arm" src="/hero-robot-arm.png" alt="" draggable="false" aria-hidden="true" />
+          <span className="hero-robot-scan" />
+        </div>
       </div>
       <div className="hero-robot-shadow" />
     </div>
