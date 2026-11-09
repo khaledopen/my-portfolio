@@ -11,9 +11,37 @@ const ProjectVisual = ({ project, index }) => (
   </div>
 );
 
+const ProjectGalleryModal = ({ project, onClose }) => (
+  <div className="project-modal" role="dialog" aria-modal="true" aria-labelledby="project-modal-title" onMouseDown={event => {
+    if (event.target === event.currentTarget) onClose();
+  }}>
+    <div className="project-modal__panel">
+      <header className="project-modal__header">
+        <div>
+          <span>ÉTUDE DE CAS / 01</span>
+          <h2 id="project-modal-title">{project.title}</h2>
+        </div>
+        <p>Faites défiler pour découvrir l’interface</p>
+        <button type="button" onClick={onClose} aria-label="Fermer la galerie du projet" autoFocus><i /> <span>FERMER</span></button>
+      </header>
+      <div className="project-modal__gallery">
+        {project.gallery.map((image, index) => (
+          <figure className="project-modal__slide" key={image.src}>
+            <div className="project-modal__image-wrap">
+              <img src={image.src} alt={image.alt} loading={index === 0 ? 'eager' : 'lazy'} />
+            </div>
+            <figcaption><span>ÉCRAN {String(index + 1).padStart(2, '0')}</span><strong>{index === 0 ? 'Tableau de bord' : 'Documents partagés'}</strong><i>{String(index + 1).padStart(2, '0')} / {String(project.gallery.length).padStart(2, '0')}</i></figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </div>
+);
+
 const EditorialProjects = () => {
   const deckRef = useRef(null);
   const [activeProject, setActiveProject] = useState(0);
+  const [viewingProject, setViewingProject] = useState(null);
 
   useEffect(() => {
     const deck = deckRef.current;
@@ -51,6 +79,20 @@ const EditorialProjects = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (!viewingProject) return undefined;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    const onKeyDown = event => {
+      if (event.key === 'Escape') setViewingProject(null);
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', onKeyDown);
+    };
+  }, [viewingProject]);
+
   const active = featuredProjects[activeProject];
 
   return (
@@ -82,7 +124,7 @@ const EditorialProjects = () => {
               return (
                 <article
                   className={`project-deck-card ${state}`}
-                  key={project.github}
+                  key={project.slug || project.github}
                   style={{
                     '--deck-index': index,
                     '--future-offset': `${Math.max(0, index - activeProject) * 7}px`,
@@ -94,33 +136,46 @@ const EditorialProjects = () => {
                   }}
                   aria-hidden={index !== activeProject}
                 >
-                  <a href={project.github} target="_blank" rel="noreferrer" tabIndex={index === activeProject ? 0 : -1} aria-label={`Voir ${project.title} sur GitHub`}>
-                    <ProjectVisual project={project} index={index} />
-                    <div className="deck-card-label"><span>NO. {String(index + 1).padStart(2, '0')}</span><strong>{project.title}</strong></div>
-                  </a>
+                  {project.gallery ? (
+                    <button type="button" onClick={() => setViewingProject(project)} tabIndex={index === activeProject ? 0 : -1} aria-label={`Découvrir le projet ${project.title}`}>
+                      <ProjectVisual project={project} index={index} />
+                      <div className="deck-card-label"><span>NO. {String(index + 1).padStart(2, '0')}</span><strong>{project.title}</strong></div>
+                    </button>
+                  ) : (
+                    <a href={project.github} target="_blank" rel="noreferrer" tabIndex={index === activeProject ? 0 : -1} aria-label={`Voir ${project.title} sur GitHub`}>
+                      <ProjectVisual project={project} index={index} />
+                      <div className="deck-card-label"><span>NO. {String(index + 1).padStart(2, '0')}</span><strong>{project.title}</strong></div>
+                    </a>
+                  )}
                 </article>
               );
             })}
           </div>
 
-          <aside className="deck-details" key={active.github}>
+          <aside className="deck-details" key={active.slug || active.github}>
             <span className="deck-details__number">NO. {String(activeProject + 1).padStart(2, '0')}</span>
             <p>{active.eyebrow}</p>
             <h3>{active.title}</h3>
             <div className="deck-details__line" />
             <p className="deck-details__copy">{active.description}</p>
             <ul>{active.technologies.map(technology => <li key={technology}>{technology}</li>)}</ul>
-            <a href={active.github} target="_blank" rel="noreferrer">OUVRIR LE PROJET <i>↗</i></a>
+            {active.gallery ? (
+              <button className="deck-details__open" type="button" onClick={() => setViewingProject(active)}>VOIR LE PROJET <i>↗</i></button>
+            ) : (
+              <a href={active.github} target="_blank" rel="noreferrer">OUVRIR LE PROJET <i>↗</i></a>
+            )}
           </aside>
 
           <div className="deck-pagination">
             <span>{String(activeProject + 1).padStart(2, '0')}</span>
-            <div>{featuredProjects.map((project, index) => <i className={index === activeProject ? 'is-active' : ''} key={project.github} />)}</div>
+            <div>{featuredProjects.map((project, index) => <i className={index === activeProject ? 'is-active' : ''} key={project.slug || project.github} />)}</div>
             <span>{String(featuredProjects.length).padStart(2, '0')}</span>
           </div>
           <div className="deck-progress"><i /></div>
         </div>
       </div>
+
+      {viewingProject && <ProjectGalleryModal project={viewingProject} onClose={() => setViewingProject(null)} />}
 
       <div className="work-outro editorial-section">
         <a className="all-projects-link" href="https://github.com/khaledopen?tab=repositories" target="_blank" rel="noreferrer" data-reveal>

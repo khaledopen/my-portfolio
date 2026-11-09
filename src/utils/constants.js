@@ -61,13 +61,17 @@ export const workExperience = [
 
 export const featuredProjects = [
   {
-    title: 'Clair — Gestion de caisse',
-    short: 'GC',
-    color: '#FFE500',
-    eyebrow: 'Application de gestion',
+    title: 'CaisseFlow',
+    short: 'CF',
+    color: '#8BC5A8',
+    eyebrow: 'Gestion de caisse collaborative',
     description: 'Application multi-utilisateur pour piloter une caisse partagée : recettes, dépenses, reçus PDF, exports Excel, historique auditable et tableaux de bord.',
     technologies: ['Laravel 12', 'MySQL', 'Bootstrap', 'Chart.js'],
-    github: 'https://github.com/khaledopen/Gestion-Caisse'
+    slug: 'caisseflow',
+    gallery: [
+      { src: '/projects/caisseflow-dashboard.png', alt: 'Tableau de bord de CaisseFlow avec les indicateurs financiers' },
+      { src: '/projects/caisseflow-documents.png', alt: 'Gestion des documents partagés dans CaisseFlow' }
+    ]
   },
   {
     title: 'Belleza',
