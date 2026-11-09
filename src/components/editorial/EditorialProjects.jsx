@@ -122,6 +122,31 @@ const EditorialProjects = () => {
         </div>
       </div>
 
+      <div className="mobile-project-list">
+        {featuredProjects.map((project, index) => (
+          <article
+            className="mobile-project-card"
+            data-reveal
+            key={`mobile-${project.github}`}
+            style={{ '--delay': `${Math.min(index * 55, 220)}ms` }}
+          >
+            <a href={project.github} target="_blank" rel="noreferrer" aria-label={`Voir ${project.title} sur GitHub`}>
+              <ProjectVisual project={project} index={index} />
+              <div className="mobile-project-card__body">
+                <div className="mobile-project-card__meta">
+                  <span>NO. {String(index + 1).padStart(2, '0')}</span>
+                  <span>{project.eyebrow}</span>
+                </div>
+                <h3>{project.title}</h3>
+                <p>{project.description}</p>
+                <ul>{project.technologies.map(technology => <li key={technology}>{technology}</li>)}</ul>
+                <strong>OUVRIR SUR GITHUB <i>↗</i></strong>
+              </div>
+            </a>
+          </article>
+        ))}
+      </div>
+
       <div className="work-outro editorial-section">
         <a className="all-projects-link" href="https://github.com/khaledopen?tab=repositories" target="_blank" rel="noreferrer" data-reveal>
           <span>EXPLORER TOUS LES DÉPÔTS</span><i>↗</i>
