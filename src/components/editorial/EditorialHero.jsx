@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { personalInfo } from '../../utils/constants';
-import HalftoneHero from './HalftoneHero';
+import RobotHero from './RobotHero';
 
 const EditorialHero = () => {
   const heroRef = useRef(null);
@@ -9,9 +9,9 @@ const EditorialHero = () => {
     <section id="hero" className="editorial-hero" ref={heroRef}>
       <div className="hero-art-stage" aria-hidden="true">
         <div className="hero-art-aura" />
-        <HalftoneHero wordmark="KSBK" />
+        <RobotHero />
         <div className="hero-art-scan" />
-        <span className="hero-fluid-label">HALFTONE / SYSTEM 01</span>
+        <span className="hero-fluid-label">ROBOT / SYSTEM 01</span>
       </div>
 
       <div className="hero-content">
