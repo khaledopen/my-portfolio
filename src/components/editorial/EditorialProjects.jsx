@@ -65,7 +65,7 @@ const EditorialProjects = () => {
         </div>
       </div>
 
-      <div ref={deckRef} className="project-deck" style={{ height: `${(featuredProjects.length + .7) * 100}vh` }}>
+      <div ref={deckRef} className="project-deck" style={{ height: `${(featuredProjects.length + .7) * 100}svh` }}>
         <div className="project-deck__sticky">
           <div className="deck-guides" aria-hidden="true"><i /><i /><i /></div>
           <div className="deck-topline">

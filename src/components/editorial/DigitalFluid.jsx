@@ -11,6 +11,7 @@ const DigitalFluid = () => {
 
     const context = canvas.getContext('2d', { alpha: false });
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const compactDevice = window.matchMedia('(hover: none), (pointer: coarse), (max-width: 820px)').matches;
     const pointer = { x: 0.68, y: 0.45, previousX: 0.68, previousY: 0.45, active: false };
     const drops = [];
     let width = 1;
@@ -22,6 +23,7 @@ const DigitalFluid = () => {
     let animationFrame;
     let visible = true;
     let lastAutoWave = 0;
+    let lastFrame = 0;
 
     const index = (x, y) => y * columns + x;
 
@@ -29,12 +31,16 @@ const DigitalFluid = () => {
       const rect = canvas.getBoundingClientRect();
       width = Math.max(1, rect.width);
       height = Math.max(1, rect.height);
-      const ratio = Math.min(window.devicePixelRatio || 1, 1.6);
+      const ratio = Math.min(window.devicePixelRatio || 1, compactDevice ? 1.25 : 1.6);
       canvas.width = Math.round(width * ratio);
       canvas.height = Math.round(height * ratio);
       context.setTransform(ratio, 0, 0, ratio, 0, 0);
-      columns = Math.max(48, Math.min(86, Math.round(width / 13)));
-      rows = Math.max(34, Math.min(58, Math.round(height / 18)));
+      columns = compactDevice
+        ? Math.max(36, Math.min(58, Math.round(width / 18)))
+        : Math.max(48, Math.min(86, Math.round(width / 13)));
+      rows = compactDevice
+        ? Math.max(26, Math.min(40, Math.round(height / 25)))
+        : Math.max(34, Math.min(58, Math.round(height / 18)));
       field = new Float32Array(columns * rows);
       velocity = new Float32Array(columns * rows);
     };
@@ -76,7 +82,7 @@ const DigitalFluid = () => {
     };
 
     const simulate = time => {
-      if (time - lastAutoWave > 1500) {
+      if (time - lastAutoWave > (compactDevice ? 2100 : 1500)) {
         const x = 0.18 + Math.random() * 0.72;
         const y = 0.12 + Math.random() * 0.76;
         disturb(x, y, 0.45 + Math.random() * 0.4);
@@ -119,7 +125,7 @@ const DigitalFluid = () => {
       context.fillRect(0, 0, width, height);
 
       context.globalCompositeOperation = 'lighter';
-      const lineCount = 22;
+      const lineCount = compactDevice ? 14 : 22;
       for (let line = 0; line < lineCount; line += 1) {
         const normalY = line / (lineCount - 1);
         const baseY = normalY * height;
@@ -143,7 +149,8 @@ const DigitalFluid = () => {
       context.globalCompositeOperation = 'source-over';
       context.font = '500 9px monospace';
       context.textAlign = 'center';
-      for (let i = 0; i < 48; i += 1) {
+      const symbolCount = compactDevice ? 24 : 48;
+      for (let i = 0; i < symbolCount; i += 1) {
         const normalX = ((i * 0.618033 + 0.07) % 1);
         const normalY = ((i * 0.381966 + 0.13) % 1);
         const wave = sample(normalX, normalY);
@@ -178,9 +185,10 @@ const DigitalFluid = () => {
     };
 
     const animate = time => {
-      if (visible) {
+      if (visible && (!compactDevice || time - lastFrame >= 32)) {
         simulate(time);
         draw(time);
+        lastFrame = time;
       }
       animationFrame = requestAnimationFrame(animate);
     };

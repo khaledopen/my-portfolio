@@ -15,6 +15,10 @@ const Layout = ({ children }) => {
   useEffect(() => {
     if (loading) return undefined;
     const items = document.querySelectorAll('[data-reveal]');
+    if (!('IntersectionObserver' in window)) {
+      items.forEach(item => item.classList.add('is-visible'));
+      return undefined;
+    }
     const observer = new IntersectionObserver(
       entries => entries.forEach(entry => {
         if (entry.isIntersecting) {
