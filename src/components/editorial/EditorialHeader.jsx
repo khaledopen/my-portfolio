@@ -20,15 +20,6 @@ const EditorialHeader = () => {
     return () => { document.body.style.overflow = ''; };
   }, [open]);
 
-  useEffect(() => {
-    if (!open) return undefined;
-    const onKeyDown = event => {
-      if (event.key === 'Escape') setOpen(false);
-    };
-    window.addEventListener('keydown', onKeyDown);
-    return () => window.removeEventListener('keydown', onKeyDown);
-  }, [open]);
-
   const close = () => setOpen(false);
 
   return (
@@ -44,18 +35,18 @@ const EditorialHeader = () => {
         <div className="nav-progress" style={{ transform: `scaleX(${progress / 100})` }} />
       </header>
 
-      <div className={`menu-panel ${open ? 'is-open' : ''}`} aria-hidden={!open} inert={!open}>
+      <div className={`menu-panel ${open ? 'is-open' : ''}`} aria-hidden={!open}>
         <div className="menu-panel__label">( NAVIGATION )</div>
         <nav>
           {navLinks.map((link, index) => (
-            <a key={link.url} href={link.url} onClick={close} tabIndex={open ? 0 : -1}>
+            <a key={link.url} href={link.url} onClick={close}>
               <span>0{index + 1}</span>{link.name}<i>↗</i>
             </a>
           ))}
         </nav>
         <div className="menu-panel__foot">
           <span>ABIDJAN, CÔTE D’IVOIRE</span>
-          <a href={personalInfo.linkedin} target="_blank" rel="noreferrer" tabIndex={open ? 0 : -1}>LINKEDIN ↗</a>
+          <a href={personalInfo.linkedin} target="_blank" rel="noreferrer">LINKEDIN ↗</a>
         </div>
       </div>
     </>

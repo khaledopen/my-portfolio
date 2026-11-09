@@ -12,15 +12,12 @@ const CodeConstellation = () => {
 
     const context = canvas.getContext('2d');
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const compactDevice = window.matchMedia('(hover: none), (pointer: coarse), (max-width: 820px)').matches;
     const pointer = { x: -1000, y: -1000, active: false };
     let width = 0;
     let height = 0;
     let points = [];
     let frame;
     let time = 0;
-    let visible = true;
-    let lastFrame = 0;
 
     const random = seed => {
       const value = Math.sin(seed * 999.91) * 43758.5453;
@@ -31,15 +28,13 @@ const CodeConstellation = () => {
       const rect = section.getBoundingClientRect();
       width = rect.width;
       height = rect.height;
-      const ratio = Math.min(window.devicePixelRatio || 1, compactDevice ? 1.25 : 2);
+      const ratio = Math.min(window.devicePixelRatio || 1, 2);
       canvas.width = Math.round(width * ratio);
       canvas.height = Math.round(height * ratio);
       canvas.style.width = `${width}px`;
       canvas.style.height = `${height}px`;
       context.setTransform(ratio, 0, 0, ratio, 0, 0);
-      const count = compactDevice
-        ? Math.max(22, Math.min(36, Math.floor(width / 34)))
-        : Math.max(30, Math.min(62, Math.floor(width / 25)));
+      const count = Math.max(30, Math.min(62, Math.floor(width / 25)));
       points = Array.from({ length: count }, (_, index) => ({
         x: random(index + 2) * width,
         y: random(index + 91) * height,
@@ -72,12 +67,7 @@ const CodeConstellation = () => {
       context.stroke();
     };
 
-    const draw = timestamp => {
-      if (!visible || (compactDevice && !reducedMotion && timestamp - lastFrame < 32)) {
-        if (!reducedMotion) frame = requestAnimationFrame(draw);
-        return;
-      }
-      lastFrame = timestamp;
+    const draw = () => {
       context.clearRect(0, 0, width, height);
       time += reducedMotion ? 0 : .009;
 
@@ -140,20 +130,15 @@ const CodeConstellation = () => {
     };
 
     resize();
-    draw(0);
+    draw();
     const resizeObserver = new ResizeObserver(resize);
-    const visibilityObserver = new IntersectionObserver(entries => {
-      visible = entries[0]?.isIntersecting ?? true;
-    });
     resizeObserver.observe(section);
-    visibilityObserver.observe(section);
     section.addEventListener('pointermove', onPointerMove, { passive: true });
     section.addEventListener('pointerleave', onPointerLeave);
 
     return () => {
       cancelAnimationFrame(frame);
       resizeObserver.disconnect();
-      visibilityObserver.disconnect();
       section.removeEventListener('pointermove', onPointerMove);
       section.removeEventListener('pointerleave', onPointerLeave);
     };

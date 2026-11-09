@@ -15,10 +15,6 @@ const Layout = ({ children }) => {
   useEffect(() => {
     if (loading) return undefined;
     const items = document.querySelectorAll('[data-reveal]');
-    if (!('IntersectionObserver' in window)) {
-      items.forEach(item => item.classList.add('is-visible'));
-      return undefined;
-    }
     const observer = new IntersectionObserver(
       entries => entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -26,7 +22,7 @@ const Layout = ({ children }) => {
           observer.unobserve(entry.target);
         }
       }),
-      { threshold: 0.05, rootMargin: '0px 0px -4% 0px' }
+      { threshold: 0.12, rootMargin: '0px 0px -6% 0px' }
     );
     items.forEach(item => observer.observe(item));
     return () => observer.disconnect();
