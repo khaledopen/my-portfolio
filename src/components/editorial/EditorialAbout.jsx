@@ -1,7 +1,6 @@
 import React from 'react';
 import { technologyStack } from '../../utils/constants';
 import CodeConstellation from './CodeConstellation';
-import TechNetwork from './TechNetwork';
 
 const EditorialAbout = () => (
   <section id="about" className="editorial-section editorial-about">
@@ -32,23 +31,34 @@ const EditorialAbout = () => (
     </div>
 
     <div className="stack-section">
-      <TechNetwork />
-      <div className="stack-network-core" aria-hidden="true"><span>{technologyStack.length}</span><small>TECH<br />CONNECTED</small></div>
       <div className="stack-section__heading" data-reveal>
         <span>( STACK ACTIVE )</span>
         <p>Technologies que j’utilise au quotidien</p>
       </div>
-      <div className="stack-grid">
+      <div className="stack-orbit" data-reveal>
+        <div className="stack-orbit__ring stack-orbit__ring--outer" aria-hidden="true" />
+        <div className="stack-orbit__ring stack-orbit__ring--inner" aria-hidden="true" />
+        <div className="stack-orbit__core">
+          <span>{technologyStack.length}</span>
+          <strong>TECHNOLOGIES</strong>
+          <small>EN ORBITE</small>
+        </div>
+        <div className="stack-orbit__track">
         {technologyStack.map((technology, index) => (
-          <div className="tech-reveal" data-reveal key={technology.name} style={{ '--delay': `${index * 65}ms` }}>
-            <div className="tech-card" style={{ '--float-delay': `${index * -0.35}s` }}>
-              <span className="tech-card__index">{String(index + 1).padStart(2, '0')}</span>
-              <img src={technology.icon} alt={`Logo ${technology.name}`} loading="lazy" />
-              <div><strong>{technology.name}</strong><span>{technology.group}</span></div>
-              <i>↗</i>
+          <div
+            className="stack-orbit__item"
+            key={technology.name}
+            style={{ '--orbit-angle': `${index * (360 / technologyStack.length)}deg` }}
+          >
+            <div className="stack-orbit__item-inner">
+              <div className="stack-orbit__card">
+                <img src={technology.icon} alt={`Logo ${technology.name}`} loading="lazy" />
+                <div><strong>{technology.name}</strong><span>{technology.group}</span></div>
+              </div>
             </div>
           </div>
         ))}
+        </div>
       </div>
     </div>
   </section>
