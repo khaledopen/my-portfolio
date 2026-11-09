@@ -1,6 +1,7 @@
 import React from 'react';
 import { technologyStack } from '../../utils/constants';
 import CodeConstellation from './CodeConstellation';
+import TechNetwork from './TechNetwork';
 
 const EditorialAbout = () => (
   <section id="about" className="editorial-section editorial-about">
@@ -31,6 +32,8 @@ const EditorialAbout = () => (
     </div>
 
     <div className="stack-section">
+      <TechNetwork />
+      <div className="stack-network-core" aria-hidden="true"><span>{technologyStack.length}</span><small>TECH<br />CONNECTED</small></div>
       <div className="stack-section__heading" data-reveal>
         <span>( STACK ACTIVE )</span>
         <p>Technologies que j’utilise au quotidien</p>
