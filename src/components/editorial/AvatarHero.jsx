@@ -47,7 +47,8 @@ const AvatarHero = () => {
   return (
     <div ref={sceneRef} className="hero-avatar-scene">
       <div className="hero-name-backdrop" aria-hidden="true">
-        <span>KONE SORY BEN KHALED</span>
+        <span>KONE SORY</span>
+        <span>BEN KHALED</span>
       </div>
       <div className="hero-avatar-glow" aria-hidden="true" />
       <div className="hero-avatar-motion">

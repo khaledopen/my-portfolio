@@ -10,18 +10,28 @@ const EditorialHero = () => {
       <div className="hero-art-stage hero-art-stage--avatar">
         <div className="hero-art-aura" />
         <AvatarHero />
+        <div className="hero-art-scan" />
+        <span className="hero-fluid-label">VISION / INTERACTIVE 01</span>
       </div>
 
-      <div className="living-hero-heading" aria-hidden="true">
-        <span>HI, I&apos;M KONE</span>
+      <div className="hero-content">
+        <p className="eyebrow hero-eyebrow">( MAINTENANT À L’ÉCRAN )</p>
+        <h1 aria-label={personalInfo.name}>
+          <span className="hero-line">Kone Sory</span>{' '}
+          <span className="hero-line hero-line--italic">Ben Khaled</span>
+        </h1>
+        <p className="hero-intro">Développeur web &amp; mobile créant des expériences numériques utiles et intentionnelles.</p>
+        <div className="hero-actions">
+          <a className="editorial-button" href="#contact"><span>ME CONTACTER</span><i>→</i></a>
+        </div>
       </div>
 
-      <h1 className="sr-only">{personalInfo.name}, développeur web et mobile à Abidjan</h1>
-      <div className="living-hero-bottom">
-        <p>Développeur web &amp; mobile guidé par des expériences utiles, fortes et mémorables.</p>
-        <a className="living-contact-button" href="#contact">ME CONTACTER <span>↗</span></a>
+      <div className="hero-footer-line">
+        <a href="#projects"><span>ACTE I</span> LE TRAVAIL</a>
+        <a href="#experience"><span>ACTE II</span> LE PROCESSUS</a>
+        <span>ABIDJAN <b>UTC</b></span>
       </div>
-      <a className="living-scroll-cue" href="#about" aria-label="Découvrir la suite"><span>SCROLL</span><i>↓</i></a>
+      <a className="scroll-seat" href="#about">PRENEZ PLACE <i>↓</i></a>
     </section>
   );
 };

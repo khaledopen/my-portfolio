@@ -25,10 +25,10 @@ const EditorialHeader = () => {
   return (
     <>
       <header className="editorial-nav">
-        <a className="nav-mark" href="#hero" aria-label="Retour en haut"><span>KS</span><em>BK</em></a>
-        <nav className="nav-links" aria-label="Navigation principale">
-          {navLinks.map(link => <a key={link.url} href={link.url}>{link.name}</a>)}
-        </nav>
+        <a className="nav-square nav-square--contact" href="#contact" aria-label="Aller à la section contact">
+          <span className="nav-envelope" aria-hidden="true"><i /></span>
+        </a>
+        <a className="nav-mark" href="#hero" aria-label="Retour en haut"><span>K</span><em>S</em></a>
         <button className={`nav-menu ${open ? 'is-open' : ''}`} onClick={() => setOpen(value => !value)} aria-label={open ? 'Fermer le menu' : 'Ouvrir le menu'} aria-expanded={open}>
           <i /><i />
         </button>
