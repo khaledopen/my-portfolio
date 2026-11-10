@@ -11,26 +11,36 @@ const AvatarHero = () => {
     const current = { x: 0, y: 0 };
     let frame;
     let pointerActive = false;
+    let nextIdleGaze = 0;
 
     const onPointerMove = event => {
-      target.x = Math.max(-1, Math.min(1, (event.clientX / window.innerWidth - .5) * 2));
-      target.y = Math.max(-1, Math.min(1, (event.clientY / window.innerHeight - .5) * 2));
+      const bounds = scene.getBoundingClientRect();
+      const centreX = bounds.left + bounds.width / 2;
+      const centreY = bounds.top + bounds.height * .41;
+      target.x = Math.max(-1, Math.min(1, (event.clientX - centreX) / (window.innerWidth * .42)));
+      target.y = Math.max(-1, Math.min(1, (event.clientY - centreY) / (window.innerHeight * .52)));
       pointerActive = true;
     };
-    const onPointerLeave = () => { pointerActive = false; };
+    const onPointerLeave = () => {
+      pointerActive = false;
+      nextIdleGaze = 0;
+    };
     const animate = timestamp => {
-      if (!pointerActive) {
-        target.x = Math.sin(timestamp * .00055) * .22;
-        target.y = Math.cos(timestamp * .00038) * .12;
+      if (!pointerActive && timestamp >= nextIdleGaze) {
+        target.x = (Math.random() - .5) * .42;
+        target.y = (Math.random() - .5) * .2;
+        nextIdleGaze = timestamp + 1600 + Math.random() * 2200;
       }
-      current.x += (target.x - current.x) * .085;
-      current.y += (target.y - current.y) * .085;
-      scene.style.setProperty('--gaze-x', `${current.x * 8}px`);
-      scene.style.setProperty('--gaze-y', `${current.y * 5}px`);
-      scene.style.setProperty('--avatar-x', `${current.x * 18}px`);
-      scene.style.setProperty('--avatar-y', `${current.y * 10}px`);
-      scene.style.setProperty('--avatar-ry', `${current.x * 5.5}deg`);
-      scene.style.setProperty('--avatar-rx', `${current.y * -3.5}deg`);
+      current.x += (target.x - current.x) * .065;
+      current.y += (target.y - current.y) * .065;
+      const microX = Math.sin(timestamp * .0063) * .14;
+      const microY = Math.cos(timestamp * .0047) * .08;
+      scene.style.setProperty('--gaze-x', `${current.x * 3.8 + microX}px`);
+      scene.style.setProperty('--gaze-y', `${current.y * 2.25 + microY}px`);
+      scene.style.setProperty('--avatar-x', `${current.x * 8}px`);
+      scene.style.setProperty('--avatar-y', `${current.y * 4}px`);
+      scene.style.setProperty('--avatar-ry', `${current.x * 2.4}deg`);
+      scene.style.setProperty('--avatar-rx', `${current.y * -1.4}deg`);
       frame = requestAnimationFrame(animate);
     };
 
