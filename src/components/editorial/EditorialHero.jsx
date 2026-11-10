@@ -1,17 +1,17 @@
 import React, { useRef } from 'react';
 import { personalInfo } from '../../utils/constants';
-import RobotHero from './RobotHero';
+import AvatarHero from './AvatarHero';
 
 const EditorialHero = () => {
   const heroRef = useRef(null);
 
   return (
-    <section id="hero" className="editorial-hero" ref={heroRef}>
-      <div className="hero-art-stage" aria-hidden="true">
+    <section id="hero" className="editorial-hero editorial-hero--avatar" ref={heroRef}>
+      <div className="hero-art-stage hero-art-stage--avatar">
         <div className="hero-art-aura" />
-        <RobotHero />
+        <AvatarHero />
         <div className="hero-art-scan" />
-        <span className="hero-fluid-label">ROBOT / SYSTEM 01</span>
+        <span className="hero-fluid-label">VISION / INTERACTIVE 01</span>
       </div>
 
       <div className="hero-content">
