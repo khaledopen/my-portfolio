@@ -7,15 +7,17 @@ import Experience from './components/editorial/EditorialProcess';
 import Projects from './components/editorial/EditorialProjects';
 import OtherProjects from './components/editorial/EditorialArchive';
 import Contact from './components/editorial/EditorialContact';
+import MotionMarquee from './components/editorial/MotionMarquee';
 
 function PortfolioPage() {
   return (
     <Layout>
       <Hero />
+      <MotionMarquee />
       <About />
+      <Experience />
       <Projects />
       <OtherProjects />
-      <Experience />
       <Contact />
     </Layout>
   );
