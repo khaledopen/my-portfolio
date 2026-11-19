@@ -1,0 +1,272 @@
+{
+  "source": "github-api",
+  "note": "Généré par scripts/sync-github.mjs depuis l’API GitHub (created_at réel).",
+  "generatedAt": "2026-11-19T09:59:11.151Z",
+  "owner": "khaledopen",
+  "repos": [
+    {
+      "name": "mon-projet-react",
+      "url": "https://github.com/khaledopen/mon-projet-react",
+      "createdAt": "2025-11-08T17:32:51Z",
+      "pushedAt": "2025-11-08T17:36:04Z",
+      "fork": false,
+      "empty": false,
+      "description": null,
+      "homepage": null,
+      "language": "JavaScript"
+    },
+    {
+      "name": "PremierProjet",
+      "url": "https://github.com/khaledopen/PremierProjet",
+      "createdAt": "2025-11-13T21:25:22Z",
+      "pushedAt": "2025-11-13T23:16:58Z",
+      "fork": false,
+      "empty": false,
+      "description": null,
+      "homepage": null,
+      "language": "HTML"
+    },
+    {
+      "name": "todolist-react",
+      "url": "https://github.com/khaledopen/todolist-react",
+      "createdAt": "2025-11-22T20:21:27Z",
+      "pushedAt": "2026-02-28T22:14:23Z",
+      "fork": false,
+      "empty": false,
+      "description": null,
+      "homepage": null,
+      "language": "TypeScript"
+    },
+    {
+      "name": "Portflio-Robbie-lens",
+      "url": "https://github.com/khaledopen/Portflio-Robbie-lens",
+      "createdAt": "2025-11-22T20:45:20Z",
+      "pushedAt": "2025-11-22T20:52:10Z",
+      "fork": false,
+      "empty": false,
+      "description": null,
+      "homepage": null,
+      "language": "HTML"
+    },
+    {
+      "name": "artisans-ci-frontend",
+      "url": "https://github.com/khaledopen/artisans-ci-frontend",
+      "createdAt": "2026-01-09T13:56:43Z",
+      "pushedAt": "2026-11-14T23:34:14Z",
+      "fork": false,
+      "empty": false,
+      "description": null,
+      "homepage": null,
+      "language": "TypeScript"
+    },
+    {
+      "name": "projet-attou-immo",
+      "url": "https://github.com/khaledopen/projet-attou-immo",
+      "createdAt": "2026-05-12T16:49:06Z",
+      "pushedAt": "2026-07-31T16:08:42Z",
+      "fork": false,
+      "empty": false,
+      "description": null,
+      "homepage": null,
+      "language": "TypeScript"
+    },
+    {
+      "name": "GoTech-Portfolio",
+      "url": "https://github.com/khaledopen/GoTech-Portfolio",
+      "createdAt": "2026-06-09T10:49:43Z",
+      "pushedAt": "2026-07-20T12:01:42Z",
+      "fork": false,
+      "empty": false,
+      "description": null,
+      "homepage": null,
+      "language": "Python"
+    },
+    {
+      "name": "Gestion-Loyer",
+      "url": "https://github.com/khaledopen/Gestion-Loyer",
+      "createdAt": "2026-06-25T10:16:21Z",
+      "pushedAt": "2026-07-24T17:41:35Z",
+      "fork": false,
+      "empty": false,
+      "description": null,
+      "homepage": "https://gestion-loyer.vercel.app",
+      "language": "JavaScript"
+    },
+    {
+      "name": "ImmoScrap",
+      "url": "https://github.com/khaledopen/ImmoScrap",
+      "createdAt": "2026-07-27T15:25:33Z",
+      "pushedAt": "2026-09-03T12:13:05Z",
+      "fork": false,
+      "empty": false,
+      "description": null,
+      "homepage": null,
+      "language": "JavaScript"
+    },
+    {
+      "name": "attou-immoApk",
+      "url": "https://github.com/khaledopen/attou-immoApk",
+      "createdAt": "2026-07-31T11:41:35Z",
+      "pushedAt": "2026-09-10T03:06:28Z",
+      "fork": false,
+      "empty": false,
+      "description": null,
+      "homepage": null,
+      "language": "Python"
+    },
+    {
+      "name": "projet-eglise",
+      "url": "https://github.com/khaledopen/projet-eglise",
+      "createdAt": "2026-08-13T09:21:29Z",
+      "pushedAt": "2026-09-10T01:59:07Z",
+      "fork": false,
+      "empty": false,
+      "description": null,
+      "homepage": null,
+      "language": "JavaScript"
+    },
+    {
+      "name": "prompt",
+      "url": "https://github.com/khaledopen/prompt",
+      "createdAt": "2026-09-01T15:33:16Z",
+      "pushedAt": "2026-09-01T15:33:17Z",
+      "fork": false,
+      "empty": true,
+      "description": null,
+      "homepage": null,
+      "language": null
+    },
+    {
+      "name": "whraf-hotel",
+      "url": "https://github.com/khaledopen/whraf-hotel",
+      "createdAt": "2026-09-14T14:37:20Z",
+      "pushedAt": "2026-10-14T10:29:07Z",
+      "fork": false,
+      "empty": false,
+      "description": null,
+      "homepage": null,
+      "language": "JavaScript"
+    },
+    {
+      "name": "flux-financiers",
+      "url": "https://github.com/khaledopen/flux-financiers",
+      "createdAt": "2026-09-17T11:28:48Z",
+      "pushedAt": "2026-10-23T01:09:55Z",
+      "fork": false,
+      "empty": false,
+      "description": null,
+      "homepage": null,
+      "language": "JavaScript"
+    },
+    {
+      "name": "Gestion-Caisse",
+      "url": "https://github.com/khaledopen/Gestion-Caisse",
+      "createdAt": "2026-09-29T11:01:28Z",
+      "pushedAt": "2026-09-30T08:57:23Z",
+      "fork": false,
+      "empty": false,
+      "description": null,
+      "homepage": null,
+      "language": "PHP"
+    },
+    {
+      "name": "institut-beauty",
+      "url": "https://github.com/khaledopen/institut-beauty",
+      "createdAt": "2026-10-09T12:32:53Z",
+      "pushedAt": "2026-10-31T13:01:54Z",
+      "fork": false,
+      "empty": false,
+      "description": null,
+      "homepage": null,
+      "language": "TypeScript"
+    },
+    {
+      "name": "my-portfolio",
+      "url": "https://github.com/khaledopen/my-portfolio",
+      "createdAt": "2026-10-14T13:44:13Z",
+      "pushedAt": "2026-11-10T13:49:17Z",
+      "fork": false,
+      "empty": false,
+      "description": null,
+      "homepage": "https://my-portfolio-flame-nine-12.vercel.app",
+      "language": "JavaScript"
+    },
+    {
+      "name": "eduBank",
+      "url": "https://github.com/khaledopen/eduBank",
+      "createdAt": "2026-10-21T11:43:39Z",
+      "pushedAt": "2026-10-21T11:43:40Z",
+      "fork": false,
+      "empty": true,
+      "description": null,
+      "homepage": null,
+      "language": null
+    },
+    {
+      "name": "Bot_english",
+      "url": "https://github.com/khaledopen/Bot_english",
+      "createdAt": "2026-10-21T17:16:53Z",
+      "pushedAt": "2026-11-18T16:52:18Z",
+      "fork": false,
+      "empty": false,
+      "description": null,
+      "homepage": null,
+      "language": "JavaScript"
+    },
+    {
+      "name": "testeur-wifi",
+      "url": "https://github.com/khaledopen/testeur-wifi",
+      "createdAt": "2026-11-03T16:39:05Z",
+      "pushedAt": "2026-11-04T10:17:24Z",
+      "fork": false,
+      "empty": false,
+      "description": null,
+      "homepage": null,
+      "language": "JavaScript"
+    },
+    {
+      "name": "Asso",
+      "url": "https://github.com/khaledopen/Asso",
+      "createdAt": "2026-11-10T16:12:37Z",
+      "pushedAt": "2026-11-12T11:48:52Z",
+      "fork": false,
+      "empty": false,
+      "description": null,
+      "homepage": "https://asso-pied.vercel.app",
+      "language": "TypeScript"
+    },
+    {
+      "name": "Portail-inter-associatif",
+      "url": "https://github.com/khaledopen/Portail-inter-associatif",
+      "createdAt": "2026-11-15T17:51:25Z",
+      "pushedAt": "2026-11-17T19:37:38Z",
+      "fork": false,
+      "empty": false,
+      "description": null,
+      "homepage": "https://portail-inter-associatif.vercel.app",
+      "language": "TypeScript"
+    },
+    {
+      "name": "Anniv-SD",
+      "url": "https://github.com/khaledopen/Anniv-SD",
+      "createdAt": "2026-11-16T09:15:48Z",
+      "pushedAt": "2026-11-16T10:04:54Z",
+      "fork": false,
+      "empty": false,
+      "description": null,
+      "homepage": "https://anniv-sd.vercel.app",
+      "language": "JavaScript"
+    },
+    {
+      "name": "bot-site",
+      "url": "https://github.com/khaledopen/bot-site",
+      "createdAt": "2026-11-16T11:34:54Z",
+      "pushedAt": "2026-11-18T16:23:28Z",
+      "fork": false,
+      "empty": false,
+      "description": null,
+      "homepage": "https://bot-site-beige.vercel.app",
+      "language": "TypeScript"
+    }
+  ]
+}

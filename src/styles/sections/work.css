@@ -1,0 +1,200 @@
+.work {
+  background: linear-gradient(180deg, var(--night) 0, var(--graphite) 40svh);
+  padding-bottom: 0;
+}
+.work .section-head {
+  margin-bottom: 0;
+}
+
+/* ---- Couverture ---- */
+.cover {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--graphite-2);
+  border: 1px solid rgb(244 240 232 / 0.08);
+}
+.cover--image picture,
+.cover--image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: left top;
+}
+.cover--type {
+  display: grid;
+  grid-template-rows: 1fr auto auto;
+  padding: clamp(1.25rem, 3vw, 2.5rem);
+  background: radial-gradient(55% 45% at var(--sun-x, 70%) 62%, var(--tint, rgb(20 35 55 / 0.6)), transparent 70%), linear-gradient(180deg, #0d0f12 0%, #16191d 62%, #111316 62.15%, #0e1013 100%);
+}
+.cover__sun {
+  position: absolute;
+  left: var(--sun-x, 70%);
+  top: 62%;
+  width: clamp(36px, 6vw, 84px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  translate: -50% -50%;
+  background: radial-gradient(circle, rgb(244 228 196 / 0.9) 0 45%, transparent 47%);
+  clip-path: inset(0 0 50% 0);
+  opacity: 0.85;
+}
+
+.cover__title {
+  align-self: end;
+  font-family: var(--font-serif);
+  font-size: clamp(2.2rem, 1.2rem + 3.6vw, 5rem);
+  line-height: 0.95;
+  color: var(--ivory);
+  padding-bottom: 1rem;
+}
+.cover__horizon {
+  height: 1px;
+  background: linear-gradient(90deg, var(--champagne), transparent 75%);
+}
+.cover__title,
+.cover__meta,
+.cover__horizon {
+  position: relative;
+}
+.cover__meta {
+  padding-top: 0.9rem;
+  color: var(--stone);
+}
+
+/* ---- Faits ---- */
+.facts {
+  display: grid;
+  gap: 1rem;
+  justify-items: start;
+  align-content: center;
+}
+.facts__domain {
+  color: var(--champagne);
+  font-size: var(--step--1);
+  display: flex;
+  gap: 0.6rem;
+  align-items: baseline;
+}
+.facts__domain .mono {
+  color: var(--stone);
+}
+.facts__title {
+  font-size: var(--step-4);
+}
+.facts__summary {
+  max-width: 46ch;
+  color: rgb(244 240 232 / 0.78);
+}
+.facts__stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.1rem;
+  color: var(--stone);
+  margin-bottom: 0.6rem;
+}
+.deck__count {
+  color: var(--stone);
+}
+
+/* ---- Deck sticky ---- */
+.deck {
+  position: relative;
+}
+.deck__sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+  align-items: center;
+  gap: var(--gutter);
+  max-width: var(--max);
+  margin-inline: auto;
+  padding: 5rem var(--gutter) 3rem;
+  overflow: hidden;
+}
+.deck__cards {
+  position: relative;
+  aspect-ratio: 16 / 10;
+}
+.deck__card {
+  position: absolute;
+  inset: 0;
+  transition:
+    transform 0.9s var(--ease-out),
+    opacity 0.6s var(--ease-out),
+    filter 0.6s;
+  will-change: transform;
+}
+.deck__card a,
+.work-stack__cover {
+  display: block;
+  height: 100%;
+  text-decoration: none;
+}
+.deck__card .cover {
+  height: 100%;
+  box-shadow: 0 40px 80px -30px rgb(0 0 0 / 0.7);
+}
+.deck__card.is-future {
+  transform: translate3d(calc(var(--offset) * 18px), calc(var(--offset) * 16px), 0) scale(calc(1 - var(--offset) * 0.04));
+  filter: brightness(calc(1 - var(--offset) * 0.18));
+}
+.deck__card.is-active {
+  transform: translate3d(0, calc(var(--local) * -14px), 0) rotate(calc(var(--local) * var(--side) * -1.2deg));
+}
+.deck__card.is-past {
+  opacity: 0;
+  transform: translate3d(calc(var(--side) * 18vw), -40svh, 0) rotate(calc(var(--side) * 8deg));
+  pointer-events: none;
+}
+.deck__facts {
+  animation: facts-in 0.8s var(--ease-out) both;
+}
+@keyframes facts-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+.deck__progress {
+  position: absolute;
+  left: var(--gutter);
+  right: var(--gutter);
+  bottom: 1.5rem;
+  height: 1px;
+  background: rgb(244 240 232 / 0.12);
+}
+.deck__progress i {
+  position: absolute;
+  inset: 0;
+  background: var(--champagne);
+  transform-origin: left;
+  transform: scaleX(var(--deck-progress, 0));
+}
+
+/* ---- Pile (mobile / mouvement réduit) ---- */
+.work-stack {
+  display: grid;
+  gap: var(--space-6);
+  padding-bottom: var(--space-6);
+}
+.work-stack__item {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  gap: var(--gutter);
+  align-items: center;
+}
+.work-stack__cover {
+  display: block;
+}
+@media (max-width: 899px) {
+  .work-stack {
+    gap: var(--space-5);
+  }
+  .work-stack__item {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+}

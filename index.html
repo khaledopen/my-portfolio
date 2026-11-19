@@ -2,27 +2,50 @@
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/ksbk.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Portfolio de KONE SORY BEN KHALED, étudiant en informatique et développeur web et mobile à Abidjan." />
-    <meta name="keywords" content="Kone Sory Ben Khaled, développeur web, développeur mobile, React, Laravel, portfolio, Abidjan" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Kone Sory Ben Khaled — Discret par nature. Sans limites quand je crée.</title>
+    <meta name="description" content="Portfolio de Kone Sory Ben Khaled, développeur web & mobile à Abidjan : projets, univers technique, parcours." />
     <meta name="author" content="KONE SORY BEN KHALED" />
-    <meta name="theme-color" content="#701D18" />
-    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#08090B" />
     <meta name="robots" content="index, follow, max-image-preview:large" />
+    <link rel="icon" type="image/svg+xml" href="/ksbk.svg" />
+    <link rel="manifest" href="/manifest.json" />
+    <!-- Domaine à mettre à jour après déploiement (voir src/data/siteConfig.ts) -->
+    <link rel="canonical" href="https://ksbk.vercel.app/" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="KONE SORY BEN KHALED — Développeur web & mobile" />
-    <meta property="og:description" content="Découvrez mon parcours, mes compétences et mes projets web." />
-    <meta property="twitter:card" content="summary" />
-    <meta property="twitter:title" content="KONE SORY BEN KHALED — Portfolio" />
-    <meta property="twitter:description" content="Étudiant en informatique et développeur web & mobile basé à Abidjan." />
-    <title>KONE SORY BEN KHALED — Portfolio</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:url" content="https://ksbk.vercel.app/" />
+    <meta property="og:title" content="Kone Sory Ben Khaled — Discret par nature. Sans limites quand je crée." />
+    <meta property="og:description" content="Développeur web & mobile à Abidjan. Projets, univers technique, parcours." />
+    <meta property="og:image" content="https://ksbk.vercel.app/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Kone Sory Ben Khaled — Portfolio" />
+    <meta name="twitter:description" content="Discret par nature. Sans limites quand je crée." />
+    <meta name="twitter:image" content="https://ksbk.vercel.app/og-image.jpg" />
+    <link rel="preload" as="image" href="/images/hero/avatar.avif" type="image/avif" fetchpriority="high" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Kone Sory Ben Khaled",
+        "jobTitle": "Développeur web & mobile",
+        "address": { "@type": "PostalAddress", "addressLocality": "Abidjan", "addressCountry": "CI" },
+        "alumniOf": { "@type": "CollegeOrUniversity", "name": "Université Polytechnique de Bingerville" },
+        "sameAs": ["https://github.com/khaledopen", "https://ci.linkedin.com/in/kone-sory-ben-khaled-71ba44308"]
+      }
+    </script>
   </head>
   <body>
+    <noscript>
+      <p style="padding:2rem;font-family:sans-serif;color:#f4f0e8;background:#08090b">
+        Kone Sory Ben Khaled — développeur web &amp; mobile à Abidjan.
+        <a href="https://github.com/khaledopen" style="color:#c7a76c">GitHub</a> ·
+        <a href="https://ci.linkedin.com/in/kone-sory-ben-khaled-71ba44308" style="color:#c7a76c">LinkedIn</a>
+      </p>
+    </noscript>
     <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

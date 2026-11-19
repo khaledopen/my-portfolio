@@ -1,0 +1,80 @@
+.philosophy {
+  padding-top: var(--space-5);
+}
+.values {
+  border-top: 1px solid var(--line);
+}
+.values li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  gap: var(--space-2) var(--gutter);
+  align-items: baseline;
+  padding: clamp(1.4rem, 1rem + 1.5vw, 2.4rem) 0;
+  border-bottom: 1px solid var(--line);
+}
+.values h3 {
+  font-size: var(--step-5);
+  line-height: 0.9;
+  transition:
+    color var(--dur-2),
+    transform var(--dur-2) var(--ease-out);
+}
+.values li:hover h3 {
+  color: var(--accent);
+  transform: translateX(0.15em);
+}
+.values p {
+  max-width: 40ch;
+  font-size: var(--step-1);
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+.method {
+  margin-top: var(--space-6);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2.4fr);
+  gap: var(--space-4) var(--gutter);
+}
+.method__title {
+  font-size: var(--step-2);
+  max-width: 12ch;
+  line-height: 1.05;
+}
+.method__steps {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: var(--gutter);
+  counter-reset: none;
+}
+.method__steps li {
+  display: grid;
+  gap: 0.5rem;
+  align-content: start;
+  padding-top: 1rem;
+  border-top: 1px solid var(--fg);
+}
+.method__steps .mono {
+  color: var(--accent);
+}
+.method__steps strong {
+  font-weight: 500;
+}
+.method__steps p {
+  color: var(--muted);
+  font-size: var(--step--1);
+}
+
+@media (max-width: 1000px) {
+  .method {
+    grid-template-columns: 1fr;
+  }
+  .method__steps {
+    grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  }
+}
+@media (max-width: 700px) {
+  .values li {
+    grid-template-columns: 1fr;
+  }
+}

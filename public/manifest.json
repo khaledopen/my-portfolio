@@ -1,14 +1,12 @@
 {
   "name": "KONE SORY BEN KHALED — Portfolio",
   "short_name": "KSBK",
-  "description": "Portfolio de KONE SORY BEN KHALED.",
+  "description": "Discret par nature. Sans limites quand je crée.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
-  "theme_color": "#701D18",
-  "background_color": "#F2EEE6",
+  "theme_color": "#08090B",
+  "background_color": "#08090B",
   "lang": "fr",
-  "dir": "ltr",
-  "categories": ["portfolio", "developer", "react"],
   "icons": [{ "src": "/ksbk.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
 }

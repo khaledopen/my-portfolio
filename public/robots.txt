@@ -1,7 +1,5 @@
 User-agent: *
 Allow: /
 
-Disallow: /api/
-Disallow: /private/
-Disallow: /.env
-Disallow: /node_modules/
+# Remplacez le domaine une fois le site déployé (voir src/data/siteConfig.ts)
+Sitemap: https://ksbk.vercel.app/sitemap.xml

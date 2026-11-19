@@ -1,0 +1,115 @@
+.tools {
+  background: linear-gradient(180deg, var(--graphite) 0, #0e1013 100%);
+}
+.tools__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(16rem, 1fr);
+  gap: var(--space-5) var(--gutter);
+  align-items: start;
+}
+.tools__domains {
+  border-top: 1px solid var(--line);
+}
+.tools__domain {
+  display: grid;
+  grid-template-columns: minmax(12rem, 1fr) minmax(0, 1.6fr);
+  gap: var(--space-3) var(--gutter);
+  padding: var(--space-4) 0;
+  border-bottom: 1px solid var(--line);
+}
+.tools__domain-head h3 {
+  font-size: var(--step-2);
+  margin-bottom: 0.4rem;
+}
+.tools__domain-head p {
+  color: var(--stone);
+  font-size: var(--step--1);
+  max-width: 30ch;
+}
+.tools__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-content: start;
+}
+.tools__list button {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.55rem;
+  min-height: 2.5rem;
+  padding: 0.45rem 0.95rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: var(--step--1);
+  transition:
+    border-color var(--dur-1),
+    background-color var(--dur-1),
+    color var(--dur-1);
+}
+.tools__list button .mono {
+  color: var(--stone);
+  font-size: 0.72rem;
+}
+.tools__list button:hover {
+  border-color: rgb(244 240 232 / 0.45);
+}
+.tools__list button[aria-pressed='true'] {
+  background: var(--champagne);
+  border-color: var(--champagne);
+  color: var(--night);
+}
+.tools__list button[aria-pressed='true'] .mono {
+  color: rgb(8 9 11 / 0.7);
+}
+
+.tools__panel {
+  position: sticky;
+  top: 6rem;
+  padding: var(--space-4) 0;
+  border-top: 1px solid var(--champagne);
+}
+.tools__panel-label {
+  color: var(--stone);
+  font-size: var(--step--1);
+}
+.tools__panel-tool {
+  font-family: var(--font-serif);
+  font-size: var(--step-4);
+  line-height: 1;
+  margin: 0.4rem 0 var(--space-3);
+}
+.tools__panel ul {
+  display: grid;
+  gap: 0.7rem;
+}
+.tools__panel li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: baseline;
+}
+.tools__panel li .mono {
+  color: var(--stone);
+}
+
+@media (max-width: 960px) {
+  .tools__layout {
+    grid-template-columns: 1fr;
+  }
+  /* Sur mobile, le panneau reste visible en bas de l'écran pendant qu'on parcourt les outils */
+  .tools__panel {
+    top: auto;
+    bottom: 0;
+    z-index: 2;
+    max-height: 42svh;
+    overflow: auto;
+    padding: var(--space-3) 0;
+    background: #0e1013;
+  }
+  .tools__panel ul {
+    grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+  }
+  .tools__domain {
+    grid-template-columns: 1fr;
+  }
+}
