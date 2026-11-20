@@ -21,8 +21,8 @@ export interface PileItem {
 export const pileItems: PileItem[] = [
   {
     src: '/images/photos/design-sprint-universitaire.jpg',
-    alt: 'Quatre étudiants en t-shirts orange devant la bannière du Design Sprint Universitaire',
-    caption: 'Design Sprint Universitaire',
+    alt: 'Quatre étudiants en t-shirts orange devant la bannière du Design Sprint Universitaire de CDC-CI Capital',
+    caption: 'CDC-CI Capital 2025-2026',
     width: 810,
     height: 1080
   },
@@ -30,7 +30,7 @@ export const pileItems: PileItem[] = [
     src: '/videos/robot-demo.jpg',
     video: '/videos/robot-demo.mp4',
     alt: 'Vidéo : un petit robot roulant fait sa démonstration dans un amphithéâtre devant des enfants et des étudiants',
-    caption: 'Le robot en démonstration',
+    caption: 'Concours Génie UPB 2025-2026, avec mon équipe SIGMA-TECH',
     width: 464,
     height: 832
   },
@@ -44,7 +44,7 @@ export const pileItems: PileItem[] = [
   {
     src: '/images/photos/robot-arduino.jpg',
     alt: 'Robot roulant fait maison : châssis transparent, carte Arduino, câbles et piles',
-    caption: 'Notre robot Arduino',
+    caption: 'Concours Génie UPB 2025-2026, avec mon équipe SIGMA-TECH',
     width: 810,
     height: 1080
   },
@@ -52,7 +52,7 @@ export const pileItems: PileItem[] = [
     src: '/videos/robot-reglages.jpg',
     video: '/videos/robot-reglages.mp4',
     alt: 'Vidéo : gros plan sur le robot posé sur une table pendant les réglages',
-    caption: 'Derniers réglages',
+    caption: 'Concours Génie UPB 2025-2026, avec mon équipe SIGMA-TECH',
     width: 464,
     height: 832
   }
