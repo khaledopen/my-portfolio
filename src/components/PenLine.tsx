@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState, type RefObject } from 'react';
 
 /**
- * Une ligne au crayon qui traverse toute la page et se trace au fil du défilement.
+ * Une ligne au crayon qui serpente sur toute la page et se trace au fil du défilement.
  * Elle passe par les éléments marqués data-line="left|right|center" et une petite pointe
  * de crayon la suit. Mouvement réduit : ligne entièrement tracée, sans crayon.
  */
@@ -44,28 +44,135 @@ export function PenLine({ container }: { container: RefObject<HTMLElement | null
     const box = root.getBoundingClientRect();
     const w = root.clientWidth;
     const h = root.scrollHeight;
-    // La ligne circule dans les marges de la page : data-line="left" ou "right" indique de quel côté
-    // passer à hauteur de l'élément, data-line="end" marque l'endroit où elle s'arrête.
-    const margin = Math.max(14, Math.min(64, (w - 1024) / 2 + 24, w * 0.05));
-    const points: Point[] = [{ x: w - margin * 1.2, y: -30 }];
-    let end: Point | null = null;
-    root.querySelectorAll<HTMLElement>('[data-line]').forEach((el, index) => {
-      const r = el.getBoundingClientRect();
-      const side = el.dataset.line;
-      const top = r.top - box.top;
-      if (side === 'end') {
-        end = { x: r.left - box.left + r.width / 2, y: top };
-        return;
-      }
-      // Sur petit écran, la ligne reste dans la marge droite pour ne jamais traverser un paragraphe
-      const x = side === 'left' && w >= 820 ? margin : w - margin;
-      points.push({ x: x + wobble(index) * 14, y: top + r.height * 0.1 });
-      points.push({ x: x - wobble(index + 3) * 16, y: top + r.height * 0.9 });
+    const narrow = w < 820;
+
+    /*
+     * La ligne serpente : dans chaque section elle ondule dans la marge (data-line="left|right"),
+     * puis entre deux sections elle traverse la page dans la bande vide (le padding des sections),
+     * avec une courbe ample et parfois une boucle. data-line="end" marque son point d'arrivée.
+     */
+    interface Leg {
+      top: number;
+      bottom: number;
+      left: number;
+      right: number;
+      anchors: { side: 'left' | 'right'; top: number; bottom: number }[];
+      end: Point | null;
+    }
+    const legs: Leg[] = [];
+    root.querySelectorAll<HTMLElement>('section').forEach((section) => {
+      let top = Infinity;
+      let bottom = -Infinity;
+      let left = Infinity;
+      let right = -Infinity;
+      Array.from(section.children).forEach((child) => {
+        const r = child.getBoundingClientRect();
+        if (!r.height) return;
+        top = Math.min(top, r.top - box.top);
+        bottom = Math.max(bottom, r.bottom - box.top);
+        left = Math.min(left, r.left - box.left);
+        right = Math.max(right, r.right - box.left);
+      });
+      if (!Number.isFinite(top)) return;
+      const leg: Leg = { top, bottom, left, right, anchors: [], end: null };
+      section.querySelectorAll<HTMLElement>('[data-line]').forEach((el) => {
+        const r = el.getBoundingClientRect();
+        const side = el.dataset.line;
+        if (side === 'end') leg.end = { x: r.left - box.left + r.width / 2, y: r.top - box.top };
+        else if (side === 'left' || side === 'right') {
+          // Sur petit écran, l'ondulation reste à droite ; les traversées, elles, gardent tout leur élan
+          leg.anchors.push({ side: narrow ? 'right' : side, top: r.top - box.top, bottom: r.bottom - box.top });
+        }
+      });
+      if (leg.anchors.length || leg.end) legs.push(leg);
     });
-    if (end) {
-      const target: Point = end;
-      points.push({ x: (target.x + (points.at(-1)?.x ?? target.x)) / 2, y: target.y - 90 });
-      points.push(target);
+    if (!legs.length) return;
+
+    const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v));
+    /** Position et amplitude de l'ondulation dans la marge d'une section. */
+    const lane = (leg: Leg, side: 'left' | 'right') => {
+      const free = side === 'left' ? leg.left : w - leg.right;
+      const inset = clamp(free * 0.5, 12, 76);
+      return { x: side === 'left' ? inset : w - inset, amp: clamp(free * 0.28, 4, 24) };
+    };
+
+    const points: Point[] = [];
+    /** Ondule verticalement de y0 à y1 autour de x, en petites vagues irrégulières. */
+    const meander = (x: number, amp: number, y0: number, y1: number, seed: number) => {
+      const steps = Math.max(1, Math.round((y1 - y0) / 150));
+      for (let i = 0; i <= steps; i += 1) {
+        points.push({ x: x + Math.sin(i * 1.7 + seed) * amp + wobble(seed + i) * amp * 0.5, y: y0 + ((y1 - y0) * i) / steps });
+      }
+    };
+    /**
+     * Traverse la bande vide entre deux sections, de (xa, y0) à (xb, y1).
+     * Même côté : la ligne fait une excursion vers le centre de la page avant de revenir.
+     * loop : ajoute une boucle à mi-chemin, comme un trait de stylo qui se laisse aller.
+     */
+    const cross = (xa: number, y0: number, xb: number, y1: number, loop: boolean, seed: number) => {
+      const H = y1 - y0;
+      const same = Math.abs(xa - xb) < w * 0.25;
+      const inward = xa < w / 2 ? 1 : -1;
+      const reach = same ? w * (narrow ? 0.36 : 0.3) * (0.85 + wobble(seed) * 0.3) : 0;
+      const R = loop ? clamp(H * 0.2, 18, narrow ? 30 : 52) : 0;
+      const n = loop ? 40 : 28;
+      // Pendant la boucle (t entre 0.36 et 0.64), la progression ralentit presque à l'arrêt
+      // pour que le trait ait le temps de s'enrouler au lieu de s'aplatir.
+      const progress = (t: number) => {
+        if (!R) return t;
+        if (t < 0.36) return (t / 0.36) * 0.47;
+        if (t > 0.64) return 0.53 + ((t - 0.64) / 0.36) * 0.47;
+        return 0.47 + ((t - 0.36) / 0.28) * 0.06;
+      };
+      for (let i = 1; i <= n; i += 1) {
+        const t = i / n;
+        const s = progress(t);
+        const ease = s * s * (3 - 2 * s);
+        let x = xa + (xb - xa) * ease + inward * reach * Math.sin(Math.PI * s);
+        let y = y0 + H * s;
+        // Boucle : le trait remonte, fait le tour, puis repart
+        const u = (t - 0.36) / 0.28;
+        if (R && u > 0 && u < 1) {
+          const dx = (xb - xa) * 6 * s * (1 - s) + inward * reach * Math.PI * Math.cos(Math.PI * s);
+          const dir = Math.sign(dx) || 1;
+          x += dir * R * Math.sin(2 * Math.PI * u);
+          y -= R * (1 - Math.cos(2 * Math.PI * u));
+        }
+        points.push({ x, y });
+      }
+    };
+
+    // Départ : en haut à droite, hors de l'écran
+    const first = legs[0]!;
+    const firstLane = lane(first, first.anchors[0]?.side ?? 'right');
+    points.push({ x: firstLane.x, y: -30 });
+
+    let crossings = 0;
+    legs.forEach((leg, index) => {
+      // Ondulation dans la marge, ancre par ancre
+      leg.anchors.forEach((a, k) => {
+        const { x, amp } = lane(leg, a.side);
+        const prev = points.at(-1)!;
+        if (k > 0 && Math.abs(prev.x - x) > w * 0.25) cross(prev.x, prev.y, x, a.top, false, index * 7 + k);
+        meander(x, amp, Math.max(a.top, prev.y + 20), a.bottom, index * 5 + k);
+      });
+      const next = legs[index + 1];
+      if (!next) return;
+      // Traversée dans la bande vide qui sépare les deux sections
+      const from = points.at(-1)!;
+      const y0 = Math.max(from.y, leg.bottom) + 18;
+      const target = next.anchors[0];
+      const xb = target ? lane(next, target.side).x : (next.end?.x ?? w / 2);
+      const y1 = target ? Math.max(y0 + 60, Math.min(next.top, target.top) - 10) : (next.end?.y ?? next.top);
+      if (y0 > from.y + 1) points.push({ x: from.x, y: y0 });
+      cross(from.x, y0, xb, y1, crossings % 2 === 0, index * 11);
+      crossings += 1;
+    });
+
+    const last = legs.at(-1)!;
+    if (last.end) {
+      const tail = points.at(-1)!;
+      if (Math.hypot(tail.x - last.end.x, tail.y - last.end.y) > 4) points.push(last.end);
     } else {
       points.push({ x: w / 2, y: h - 40 });
     }
