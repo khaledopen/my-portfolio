@@ -1,66 +1,27 @@
-import { useCallback, useEffect, useLayoutEffect, useState } from 'react';
+import { useLayoutEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
-import { Intro } from '../components/Intro';
-import { IntroContext } from '../components/IntroContext';
-import { Nav } from '../components/Nav';
-import { Footer } from '../sections/Footer';
-import { siteConfig } from '../data/siteConfig';
-import { ScrollTrigger } from '../animations/gsap';
+import { Footer } from '@/sections/Footer';
 
-function shouldPlayIntro(pathname: string): boolean {
-  if (pathname !== '/') return false;
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
-  try {
-    return sessionStorage.getItem(siteConfig.introStorageKey) !== '1';
-  } catch {
-    return true;
-  }
-}
-
-/** Remonte en haut à chaque page, ou va à l'ancre demandée (#work, #contact…). */
-function useScrollToLocation() {
+function ScrollToTop() {
   const { pathname, hash } = useLocation();
   useLayoutEffect(() => {
-    if (hash) {
-      const target = document.getElementById(decodeURIComponent(hash.slice(1)));
-      if (target) {
-        requestAnimationFrame(() => target.scrollIntoView());
-        return;
-      }
-    }
-    window.scrollTo(0, 0);
+    if (hash) document.getElementById(decodeURIComponent(hash.slice(1)))?.scrollIntoView();
+    else window.scrollTo(0, 0);
   }, [pathname, hash]);
-  useEffect(() => {
-    const id = window.setTimeout(() => ScrollTrigger.refresh(), 200);
-    return () => window.clearTimeout(id);
-  }, [pathname]);
+  return null;
 }
 
 export function SiteLayout() {
-  const location = useLocation();
-  const [introDone, setIntroDone] = useState(() => !shouldPlayIntro(location.pathname));
-  useScrollToLocation();
-
-  const finishIntro = useCallback(() => {
-    try {
-      sessionStorage.setItem(siteConfig.introStorageKey, '1');
-    } catch {
-      /* stockage indisponible : l'intro pourra être rejouée, sans conséquence */
-    }
-    setIntroDone(true);
-  }, []);
-
   return (
-    <IntroContext.Provider value={introDone}>
-      {!introDone && <Intro onDone={finishIntro} />}
-      <a className="skip-link" href="#main">
+    <>
+      <ScrollToTop />
+      <a href="#contenu" className="fixed top-3 left-4 z-[200] -translate-y-[160%] rounded-full border border-ink bg-paper px-4 py-2 transition-transform focus-visible:translate-y-0">
         Aller au contenu
       </a>
-      <Nav />
-      <main id="main" tabIndex={-1}>
+      <div id="contenu" tabIndex={-1}>
         <Outlet />
-      </main>
+      </div>
       <Footer />
-    </IntroContext.Provider>
+    </>
   );
 }

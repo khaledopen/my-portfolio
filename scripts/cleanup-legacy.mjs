@@ -17,7 +17,14 @@ const legacy = [
   'src/components/editorial',
   'src/components/layout',
   'src/components/sections',
-  'src/components/ui',
+  // Anciens composants v1 de src/components/ui (le dossier lui-même contient les composants actuels)
+  'src/components/ui/Button.jsx',
+  'src/components/ui/Cursor.jsx',
+  'src/components/ui/FeaturedProjectCard.jsx',
+  'src/components/ui/Loader',
+  'src/components/ui/MarqueeTicker.jsx',
+  'src/components/ui/OtherProjectCard.jsx',
+  'src/components/ui/SocialLinks.jsx',
   'src/hooks/useIntersectionObserver.js',
   'src/hooks/useScrollspy.js',
   'src/utils',
@@ -27,7 +34,30 @@ const legacy = [
   'public/hero-robot-arm.png',
   'public/hero-robot-body.png',
   'public/hero-robot-v1.png',
-  'dist'
+  'dist',
+  // Version 2 (« horizon »), remplacée par la version « rideau »
+  'src/components/Intro.tsx',
+  'src/components/IntroContext.ts',
+  'src/components/HorizonPlate.tsx',
+  'src/styles/tokens.css',
+  'src/styles/base.css',
+  'src/styles/sections',
+  'src/animations',
+  'src/data/world.ts',
+  // Version 3 (« rideau »), remplacée par la version « carnet de croquis »
+  'src/components/ActHeading.tsx',
+  'src/components/Nav.tsx',
+  'src/components/ProjectCover.tsx',
+  'src/components/Avatar.tsx',
+  'src/components/ui',
+  'src/sections/Archive.tsx',
+  'src/sections/Journey.tsx',
+  'src/sections/Moments.tsx',
+  'src/sections/Philosophy.tsx',
+  'src/sections/Tools.tsx',
+  'src/pages/ProjectPage.tsx',
+  'src/styles/avatar.css',
+  'src/lib/journey.ts'
 ];
 
 const existing = [];

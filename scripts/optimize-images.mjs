@@ -7,7 +7,7 @@ import { readdir, stat } from 'node:fs/promises';
 import { join, extname } from 'node:path';
 import sharp from 'sharp';
 
-const roots = ['public/images', 'public/projects'];
+const roots = ['public/images', 'public/projects', 'public/videos'];
 const exts = new Set(['.png', '.jpg', '.jpeg']);
 
 async function walk(dir) {

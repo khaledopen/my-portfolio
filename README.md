@@ -2,7 +2,13 @@
 
 > Discret par nature. Sans limites quand je crée.
 
-Portfolio en React 19, TypeScript strict, Vite 7 et GSAP. Le site suit l'arc d'une journée : la nuit pour le premier contact (le silence), l'aube pour les projets (la connexion), le jour pour l'univers personnel (la révélation), le crépuscule pour le contact. Une ligne d'horizon champagne sert de fil conducteur, de l'intro jusqu'au pied de page.
+Portfolio en React 19, TypeScript strict, Vite 7 et Tailwind CSS 4, dans l'esprit d'un carnet de croquis (inspiré de la structure de gregskril.com, avec des dessins et des textes originaux).
+
+- **Fond crème, encre bleu cobalt**, police arrondie Nunito (libre). Le mode sombre suit le réglage du système.
+- **Yeux dessinés** en haut de page : ils clignent, suivent la souris et lèvent les sourcils au clic (`components/Eyes.tsx`).
+- **Une ligne au crayon** traverse la page dans les marges et se trace au fil du défilement, jusqu'à l'avatar du contact (`components/PenLine.tsx`). Les illustrations se dessinent quand elles apparaissent (`components/Sketch.tsx`).
+- **Des choses que j'ai construites** : les projets mis en avant, un compteur en bâtons, et la page `/projets` qui liste tout.
+- **Extraits de ma pellicule** : tes photos et vidéos à déplacer à la souris. Un clic ouvre la vue rapprochée, où les vidéos sont lues avec le son (`components/PhotoPile.tsx`).
 
 ## Installation et lancement
 
@@ -36,15 +42,14 @@ La commande affiche la liste et demande confirmation. Elle ne touche jamais au d
 
 ```
 src/
-  animations/   GSAP + ScrollTrigger
-  components/   Avatar, Intro, Nav, Lightbox, Picture, ProjectCover, HorizonPlate
-  sections/     Hero, About, Work, Archive, Tools, Moments, World, Philosophy, Journey, Contact, Footer
-  pages/        Home, ProjectPage (/projects/:slug), NotFound
-  layouts/      SiteLayout (intro, navigation, défilement vers les ancres)
+  components/   Eyes, PenLine, Sketch (dessins + compteur), PhotoPile, Lightbox, ProjectRows, Picture
+  sections/     Hero, About, Work (projets), World (pellicule), Contact, Footer
+  pages/        Home, ProjectsPage (/projets), NotFound
+  layouts/      SiteLayout
   hooks/        media queries, piège de focus, titre de page
   data/         TOUT LE CONTENU (voir ci-dessous)
   lib/          fusion GitHub + contenu éditorial, parcours
-  styles/       tokens.css, base.css, sections/*.css
+  styles/       index.css (thème clair/sombre)
   types/
 scripts/
   sync-github.mjs      métadonnées GitHub au build
@@ -62,10 +67,7 @@ Tout se trouve dans `src/data/`. Aucun composant n'est à modifier.
 | `profile.ts` | Nom, rôle, liens, **email**, **CV**, **portrait** (à `null` tant que non fournis) |
 | `projects.ts` | Description vérifiée de chaque projet |
 | `github.generated.json` | Dates et liens GitHub (généré, à commiter) |
-| `hackathons.ts` | Hackathons, concours, événements |
-| `experiences.ts` | Formation, certifications, étapes du parcours |
-| `skills.ts` | Regroupement des technologies par domaine |
-| `world.ts` | Planches du journal « Loin de l'écran » |
+| `media.ts` | Photos et vidéos de la pellicule |
 | `siteConfig.ts` | Domaine, titre, navigation |
 
 ### Ajouter ou masquer un projet
@@ -81,25 +83,19 @@ Ils sont triés par date de création.
 1. `npm run sync:github` met à jour `github.generated.json`. Un `GITHUB_TOKEN` est optionnel ; il est lu côté build uniquement (voir `.env.example`).
 2. Dans `src/data/projects.ts`, ajoute une entrée avec le nom exact du dépôt (`repo`) et une description fondée sur son README.
 3. Options d'une entrée :
-   - `featured: true` : présentation immersive ;
+   - `featured: true` : le projet apparaît sur l'accueil, dans « Des choses que j'ai construites » ;
    - `hidden: { reason }` : masquer le projet sans le supprimer ;
-   - `images` : captures d'écran ;
-   - `demo` : lien vers la démo.
+   - `demo` : lien vers la démo (la ligne pointe alors vers la démo plutôt que vers GitHub).
 
-Un dépôt sans entrée s'affiche quand même dans l'archive, avec sa description GitHub.
+Un dépôt sans entrée s'affiche quand même sur `/projets`, avec sa description GitHub.
 
-### Ajouter des captures ou des photos
+### Ajouter des photos ou des vidéos à la pellicule
 
-1. Dépose l'original (`.png` ou `.jpg`) dans `public/projects/` ou `public/images/...`.
-2. `npm run images` génère les versions `.avif` et `.webp`.
-3. Référence le fichier original (avec son extension) et ses dimensions réelles dans le fichier de données.
+1. Photo : dépose-la dans `public/images/photos/`. Vidéo : dépose le `.mp4` dans `public/videos/`, avec une image d'aperçu `.jpg` du même nom.
+2. Lance `npm run images` pour générer les versions `.avif` et `.webp`, plus légères.
+3. Ajoute une ligne dans `src/data/media.ts`, avec ses dimensions réelles et une légende.
 
-### Ajouter un hackathon ou un concours
-
-1. Photos dans `public/images/hackathons/` (ou `competitions/`, `events/`), puis `npm run images`.
-2. Copie l'exemple commenté de `src/data/hackathons.ts` et remplis-le. Indique `result` uniquement s'il est confirmé.
-
-La galerie, la visionneuse plein écran (clavier, balayage tactile) et la frise du parcours se mettent à jour seules.
+La pile se réorganise toute seule.
 
 ## Déploiement sur Vercel
 
@@ -107,20 +103,17 @@ La galerie, la visionneuse plein écran (clavier, balayage tactile) et la frise 
 2. Optionnel : variable d'environnement `GITHUB_TOKEN` (portée Build). Si l'API GitHub est indisponible, le build continue avec les données commitées.
 3. Après le premier déploiement, remplace `https://ksbk.vercel.app` par le vrai domaine dans trois fichiers : `src/data/siteConfig.ts`, `index.html` (canonical, Open Graph) et `public/robots.txt`.
 
-`vercel.json` gère déjà les routes `/projects/:slug` et le cache des fichiers statiques.
+`vercel.json` gère déjà la route `/projets` et le cache des fichiers statiques.
 
 ## Accessibilité et mouvement
 
-- Intro jouée une fois par session, passable avec le bouton ou la touche Échap, et désactivée si le système demande de réduire les animations.
-- Lien d'évitement, focus visible, menu et visionneuse avec focus piégé et fermeture par Échap.
-- Avec `prefers-reduced-motion`, aucun défilement animé : les projets s'affichent en liste simple.
-- Le regard de l'avatar suit la souris uniquement sur les appareils à pointeur fin.
+- Mouvement réduit : la ligne et les dessins s'affichent entièrement tracés, sans crayon ; les yeux ne bougent plus ; les vidéos ne se lancent pas seules.
+- Lien d'évitement, focus visible, photos ouvrables au clavier (Entrée), vue rapprochée avec focus piégé, Échap pour fermer et flèches pour naviguer.
+- Les yeux suivent la souris uniquement sur les appareils à pointeur fin.
 
 ## Reste à fournir
 
-- Photo(s) personnelle(s) → `profile.portrait`
-- Photos et récits de hackathons et concours → `hackathons.ts`
-- Email public et CV PDF → `profile.ts`
-- Vraies photos pour « Loin de l'écran » (des horizons dessinés en code les remplacent en attendant) → `world.ts`
-- Captures des projets mis en avant autres que CaisseFlow
+- Les détails de tes hackathons et concours (nom, date, rôle, résultat confirmé), si tu veux les raconter
+- Email public et CV PDF → `src/data/profile.ts`
+- D'autres photos ou vidéos pour la pellicule → `src/data/media.ts`
 - Domaine final

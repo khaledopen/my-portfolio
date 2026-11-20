@@ -1,67 +1,44 @@
-import { useLayoutEffect, useRef } from 'react';
-import { ArrowUpRight, Download } from 'lucide-react';
-import { gsap, prefersReducedMotion } from '../animations/gsap';
-import { profile } from '../data/profile';
+import { profile } from '@/data/profile';
 
 export function Contact() {
-  const root = useRef<HTMLElement>(null);
-
-  useLayoutEffect(() => {
-    const el = root.current;
-    if (!el || prefersReducedMotion()) return undefined;
-    const ctx = gsap.context(() => {
-      // Le soleil se couche à mesure qu'on arrive au contact
-      gsap.fromTo(
-        '.contact__sun',
-        { yPercent: -40 },
-        {
-          yPercent: 70,
-          ease: 'none',
-          scrollTrigger: { trigger: el, start: 'top 85%', end: 'center center', scrub: 0.8 }
-        }
-      );
-    }, el);
-    return () => ctx.revert();
-  }, []);
-
-  const links = [
-    { label: 'GitHub', detail: 'github.com/khaledopen', href: profile.github },
-    { label: 'LinkedIn', detail: 'Kone Sory Ben Khaled', href: profile.linkedin },
-    ...(profile.email ? [{ label: 'E-mail', detail: profile.email, href: `mailto:${profile.email}` }] : [])
-  ];
-
   return (
-    <section ref={root} id="contact" className="contact" aria-labelledby="contact-title">
-      <div className="contact__sky" aria-hidden="true">
-        <span className="contact__sun-clip">
-          <span className="contact__sun" />
-        </span>
-        <span className="contact__horizon horizon-rule" />
+    <section id="contact" aria-labelledby="contact-title" className="flex flex-col items-center px-[clamp(1.25rem,4vw,3rem)] pt-[clamp(6.5rem,11vw,9rem)] text-center">
+      <div className="relative z-[2] flex flex-col items-center">
+        <picture data-line="end">
+          <source srcSet="/images/hero/avatar.avif" type="image/avif" />
+          <source srcSet="/images/hero/avatar.webp" type="image/webp" />
+          <img
+            src="/images/hero/avatar.png"
+            alt="Avatar 3D de Khaled"
+            width={112}
+            height={112}
+            loading="lazy"
+            className="mb-6 size-28 rounded-full border-2 border-ink bg-paper-2 object-cover object-[50%_32%] shadow-[0_1px_2px_rgba(0,0,0,.08),0_10px_24px_-12px_rgba(0,0,0,.35)]"
+          />
+        </picture>
+        <h2 id="contact-title" className="title">
+          Dis bonjour<span className="sr-only"> : liens de contact</span>
+        </h2>
       </div>
-      <div className="wrap contact__inner">
-        <h2 id="contact-title">Créons quelque chose qui a du sens.</h2>
-        <p className="contact__lede">Un projet, une équipe de hackathon, une idée à construire&nbsp;: écrivez-moi, je réponds.</p>
-        <ul className="contact__links">
-          {links.map(link => (
-            <li key={link.label}>
-              <a href={link.href} target={link.href.startsWith('mailto:') ? undefined : '_blank'} rel="noreferrer">
-                <span className="contact__label">{link.label}</span>
-                <span className="contact__detail">{link.detail}</span>
-                <ArrowUpRight aria-hidden="true" />
-              </a>
-            </li>
-          ))}
-          {profile.cv && (
-            <li>
-              <a href={profile.cv} download>
-                <span className="contact__label">CV</span>
-                <span className="contact__detail">Télécharger le PDF</span>
-                <Download aria-hidden="true" />
-              </a>
-            </li>
-          )}
-        </ul>
+      <div className="relative z-[2] mt-[clamp(4rem,7vw,6rem)] flex flex-wrap justify-center gap-2">
+        <a className="btn" href={profile.github} target="_blank" rel="noreferrer">
+          GitHub
+        </a>
+        <a className="btn" href={profile.linkedin} target="_blank" rel="noreferrer">
+          LinkedIn
+        </a>
+        {profile.email && (
+          <a className="btn" href={`mailto:${profile.email}`}>
+            E-mail
+          </a>
+        )}
+        {profile.cv && (
+          <a className="btn" href={profile.cv} download>
+            CV
+          </a>
+        )}
       </div>
+      <div className="h-[clamp(7rem,11vw,9rem)]" />
     </section>
   );
 }

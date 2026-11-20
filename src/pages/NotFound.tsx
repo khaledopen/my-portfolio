@@ -1,15 +1,19 @@
 import { Link } from 'react-router-dom';
-import { useDocumentTitle } from '../hooks/useDocumentTitle';
+import { Eyes } from '@/components/Eyes';
+import { useDocumentTitle } from '@/hooks/useDocumentTitle';
 
 export default function NotFound() {
   useDocumentTitle('Page introuvable');
   return (
-    <section className="not-found wrap" aria-labelledby="nf-title">
-      <h1 id="nf-title">Rien à l’horizon.</h1>
+    <main className="grid min-h-svh content-center justify-items-center gap-6 px-6 text-center">
+      <div className="text-[6rem] leading-none">
+        <Eyes />
+      </div>
+      <h1 className="title">Rien à voir ici.</h1>
       <p>Cette page n’existe pas ou a été déplacée.</p>
-      <Link className="button" to="/">
-        Revenir à l’accueil
+      <Link to="/" className="btn">
+        Accueil
       </Link>
-    </section>
+    </main>
   );
 }

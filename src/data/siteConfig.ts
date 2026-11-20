@@ -2,16 +2,16 @@ export const siteConfig = {
   /** Domaine final, sans slash final. À mettre à jour après le déploiement (sitemap, canonical, Open Graph). */
   url: 'https://ksbk.vercel.app',
   title: 'Kone Sory Ben Khaled — Discret par nature. Sans limites quand je crée.',
-  description: 'Portfolio de Kone Sory Ben Khaled, développeur web & mobile à Abidjan : projets, univers technique, parcours.',
-  /** L'intro est jouée une fois par session de navigation. */
-  introStorageKey: 'ksbk:intro-seen'
+  description: 'Portfolio de Kone Sory Ben Khaled, développeur web & mobile à Abidjan : projets, univers technique, parcours.',
+  /** Couleur du rideau de velours */
+  curtainColor: '#1b2a78'
 };
 
 export const navigation = [
-  { label: 'Travaux', href: '/#work' },
-  { label: 'Outils', href: '/#tools' },
-  { label: 'Moments', href: '/#moments' },
-  { label: 'Univers', href: '/#world' },
-  { label: 'Parcours', href: '/#journey' },
+  { label: 'Prologue', href: '/#prologue' },
+  { label: 'Sur scène', href: '/#scene' },
+  { label: 'Les outils', href: '/#outils' },
+  { label: 'Les coulisses', href: '/#coulisses' },
+  { label: 'Le parcours', href: '/#parcours' },
   { label: 'Contact', href: '/#contact' }
 ];

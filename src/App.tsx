@@ -1,10 +1,10 @@
 import { lazy, Suspense } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { SiteLayout } from './layouts/SiteLayout';
-import Home from './pages/Home';
-import NotFound from './pages/NotFound';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { SiteLayout } from '@/layouts/SiteLayout';
+import Home from '@/pages/Home';
+import NotFound from '@/pages/NotFound';
 
-const ProjectPage = lazy(() => import('./pages/ProjectPage'));
+const ProjectsPage = lazy(() => import('@/pages/ProjectsPage'));
 
 export default function App() {
   return (
@@ -13,19 +13,15 @@ export default function App() {
         <Route element={<SiteLayout />}>
           <Route index element={<Home />} />
           <Route
-            path="projects/:slug"
+            path="projets"
             element={
-              <Suspense
-                fallback={
-                  <div className="page-loading" role="status">
-                    Chargement du projet…
-                  </div>
-                }
-              >
-                <ProjectPage />
+              <Suspense fallback={<p className="grid min-h-svh place-items-center">Chargement…</p>}>
+                <ProjectsPage />
               </Suspense>
             }
           />
+          {/* Anciennes adresses de pages projet → liste complète */}
+          <Route path="projects/*" element={<Navigate to="/projets" replace />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
