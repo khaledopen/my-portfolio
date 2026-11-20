@@ -37,7 +37,7 @@ export const pileItems: PileItem[] = [
   {
     src: '/images/photos/equipe.jpg',
     alt: 'Cinq étudiants en chemise et cravate assis sur des gradins, souriants',
-    caption: 'Avec l’équipe',
+    caption: 'SIADE 2026',
     width: 1080,
     height: 810
   },
